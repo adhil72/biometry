@@ -16,14 +16,19 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+
     implementation("org.mongodb:mongodb-driver-sync:5.1.2")
     implementation("com.machinezoo.sourceafis:sourceafis:3.18.1")
+
+    implementation("org.jsoup:jsoup:1.15.3")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-test")
 
     implementation("org.apache.commons:commons-csv:1.9.0")
     implementation("com.machinezoo.sourceafis:sourceafis:3.18.1")
+
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
 }
 
 

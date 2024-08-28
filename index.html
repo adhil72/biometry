@@ -1,0 +1,118 @@
+<html id="876de4a0-f37c-4086-a255-685ce54361a6"  class="select-none" ><head id="6c735ede-cb40-49ad-96dc-539fa98e969a"  class="select-none " ><title id="e9fbf8bc-4cfd-4ff0-8dde-31df042e7cd6"  class="select-none " >Lumina</title>                    <script>  <script src="https://cdn.tailwindcss.com"></script></script><script>
+    function sendMessageToJava(message) {
+        ipc.receiveMessage(JSON.stringify(message));
+    }
+    
+    function clickHandler(id) {
+        sendMessageToJava({id, path: "click"});
+    }
+
+    function formSubmitHandler(id) {
+        sendMessageToJava({id, path: "formSubmit"});
+    }
+
+    function mouseEnterHandler(id) {
+        sendMessageToJava({id, path: "mouseEnter"});
+    }
+
+    function mouseLeaveHandler(id) {
+        sendMessageToJava({id, path: "mouseLeave"});
+    }
+
+    function changeHandler(id) {
+        sendMessageToJava({id, path: "change"});
+    }
+
+    function inputHandler(id) {
+        sendMessageToJava({id, path: "input"});
+    }
+
+    function scrollHandler(id) {
+        sendMessageToJava({id, path: "scroll"});
+    }
+
+    function keyPressHandler(id) {
+        sendMessageToJava({id, path: "keyPress"});
+    }
+
+    function keyUpHandler(id) {
+        sendMessageToJava({id, path: "keyUp"});
+    }
+
+    function keyDownHandler(id) {
+        sendMessageToJava({id, path: "keyDown"});
+    }
+
+    function contextMenuHandler(id) {
+        sendMessageToJava({id, path: "contextMenu"});
+    }
+
+    function doubleClickHandler(id) {
+        sendMessageToJava({id, path: "doubleClick"});
+    }
+
+    function dragHandler(id) {
+        sendMessageToJava({id, path: "drag"});
+    }
+
+    function dragEndHandler(id) {
+        sendMessageToJava({id, path: "dragEnd"});
+    }
+
+    function dragEnterHandler(id) {
+        sendMessageToJava({id, path: "dragEnter"});
+    }
+
+    function dragExitHandler(id) {
+        sendMessageToJava({id, path: "dragExit"});
+    }
+
+    function dragLeaveHandler(id) {
+        sendMessageToJava({id, path: "dragLeave"});
+    }
+
+    function dragOverHandler(id) {
+        sendMessageToJava({id, path: "dragOver"});
+    }
+
+    function dragStartHandler(id) {
+        sendMessageToJava({id, path: "dragStart"});
+    }
+
+    function dropHandler(id) {
+        sendMessageToJava({id, path: "drop"});
+    }
+
+    function focusHandler(id) {
+        sendMessageToJava({id, path: "focus"});
+    }
+
+    function blurHandler(id) {
+        sendMessageToJava({id, path: "blur"});
+    }
+</script> 
+<script>
+    function preventPropagation(e) {
+        e.stopPropagation();
+    }
+</script></head><script>
+tailwind.config = {
+    theme: {
+        extend: {
+            animation: {
+                'expand-top-bottom': 'expand-top-bottom 0.5s',
+            },
+            keyframes: {
+                'expand-top-bottom': {
+                    0%:{
+                        scaleY:0;
+                    },
+                    100%:{
+                        scaleY:1;
+                    }
+                },
+            },
+        }
+    }
+}
+ </script><body id="4784d18f-b79f-4109-b3d5-d7ef02e651ee"  class="select-none " ><div id="toast-layout"  class="select-none w-full h-screen z-50 flex flex-col items-center max-h-[400px] pt-5 absolute pointer-events-none overflow-y-auto " ></div><div id="da7745cb-b9e5-4e07-a720-1b324fd45c1c"  class="select-none w-full h-screen overflow-y-auto overflow-x-hidden bg-gray-200 flex " ><div id="7cbadfa7-e605-4ae5-8202-20182560051b"  class="select-none w-64 h-screen bg-white shadow-lg flex flex-col p-5 " ><span id="4d08ae4c-9b0e-4879-98b1-51ae78adddbd"  class="select-none inherit-cursor text-2xl font-bold text-black " >Biometry Admin</span><div id="abb04db9-56d4-44ee-a204-0d10b527de69" onclick="clickHandler('abb04db9-56d4-44ee-a204-0d10b527de69')" class="select-none flex text-gray-600 items-center w-full cursor-pointer rounded-md p-2 transition-all duration-200 ease-in-out hover:bg-gray-100 active:bg-gray-300 bg-white mt-5" ><img id="4a0b69f8-2846-49ae-917d-5de86fd26380" src="file:/home/adhil/Desktop/projects/BiometryAlpha/build/resources/main/icons/home.svg" class="select-none w-5 h-5" ></img><span id="2c9b1346-d69c-4f08-a740-26f471d1a13f"  class="select-none inherit-cursor ml-3" >Dashboard</span></div><div id="5a888246-91ac-44ce-b188-67ce6176de5e" onclick="clickHandler('5a888246-91ac-44ce-b188-67ce6176de5e')" class="select-none flex text-gray-600 items-center w-full cursor-pointer rounded-md p-2 transition-all duration-200 ease-in-out bg-gray-300 mt-1" ><img id="180814a1-9d68-4206-a1d1-d4202a4375d4" src="file:/home/adhil/Desktop/projects/BiometryAlpha/build/resources/main/icons/user_add.svg" class="select-none w-5 h-5" ></img><span id="0e0fe789-6975-4bff-8ace-129717731dc6"  class="select-none inherit-cursor ml-3" >Create student</span></div><div id="067f74d3-9ef4-423c-a108-d3286f208cd9" onclick="clickHandler('067f74d3-9ef4-423c-a108-d3286f208cd9')" class="select-none flex text-gray-600 items-center w-full cursor-pointer rounded-md p-2 transition-all duration-200 ease-in-out hover:bg-gray-100 active:bg-gray-300 bg-white mt-1" ><img id="950775a9-1ab0-4b31-b845-325cf4b39060" src="file:/home/adhil/Desktop/projects/BiometryAlpha/build/resources/main/icons/finger.svg" class="select-none w-5 h-5" ></img><span id="bf324d1e-7d63-414e-9787-4c6671ee5531"  class="select-none inherit-cursor ml-3" >Record attendance</span></div><div id="e7974ac4-4f0f-4bfd-be67-7262a599ce9c" onclick="clickHandler('e7974ac4-4f0f-4bfd-be67-7262a599ce9c')" class="select-none flex text-gray-600 items-center w-full cursor-pointer rounded-md p-2 transition-all duration-200 ease-in-out hover:bg-gray-100 active:bg-gray-300 bg-white mt-1" ><img id="475a8b80-af9c-41c3-ad51-e2f474ba1fd4" src="file:/home/adhil/Desktop/projects/BiometryAlpha/build/resources/main/icons/table.svg" class="select-none w-5 h-5" ></img><span id="cbf79071-5fba-44e5-af8f-741c01e04f8d"  class="select-none inherit-cursor ml-3" >View Records</span></div></div><div id="211b23d9-681f-4e1c-8f1f-b51201f0f667"  class="select-none flex-1 h-screen flex justify-center " ><div id="dia_d3dbbc23-51d5-4a30-b73f-a4eb04b03df5" onclick="clickHandler('dia_d3dbbc23-51d5-4a30-b73f-a4eb04b03df5')" class="select-none w-full transition-all duration-200 h-screen fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden " ><div id="e0a0cd66-d266-49b8-8e5a-36c7b5108d50" onclick="event.stopPropagation()" class="select-none w-[500px] flex flex-col items-center bg-white rounded-xl shadow-md p-6 " ><span id="40f72a5f-21f8-4cd5-b4e2-47ba14da671b"  class="select-none inherit-cursor text-xl font-bold text-black" >Scan your finger</span><svg id="de1f500a-92cc-4358-aa2a-9b6074854f50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="select-none lucide lucide-fingerprint w-20 h-20" ><path id="3d15111b-02b0-42e2-8a2a-2d8a62731d24" d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" class="select-none " ></path><path id="79d51836-e1d6-45b1-80ab-906735362448" d="M14 13.12c0 2.38 0 6.38-1 8.88" class="select-none " ></path><path id="949f8f66-feac-43dd-b59b-b2e49f5eb787" d="M17.29 21.02c.12-.6.43-2.3.5-3.02" class="select-none " ></path><path id="be06d7af-8d85-4169-9029-b8a7c6c6fca0" d="M2 12a10 10 0 0 1 18-6" class="select-none " ></path><path id="6a167c04-8573-4ccf-aaba-ebf60b676549" d="M2 16h.01" class="select-none " ></path><path id="4bc715a6-7a62-4356-9008-5a324936e8d2" d="M21.8 16c.2-2 .131-5.354 0-6" class="select-none " ></path><path id="a3c6056e-9332-4690-913f-6a1e1442ccff" d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" class="select-none " ></path><path id="0cd4f1bd-fc6b-4dc2-af72-324110ec132b" d="M8.65 22c.21-.66.45-1.32.57-2" class="select-none " ></path><path id="496461f4-46fd-4278-9bec-d96518850fd8" d="M9 6.8a6 6 0 0 1 9 5.2v2" class="select-none " ></path></svg><div id="39c3f4f4-2b91-4048-b584-734fcdb99a54"  class="select-none w-full h-3 bg-gray-300 rounded-lg overflow-hidden " ><div id="progressTint_1f8b889e-36f3-49d7-b16b-2b5fc30a0861"  class="select-none h-full bg-black rounded-lg transition-all duration-300 ease-in-out " style="width: 0%"></div></div></div></div><div id="9da12780-72d0-4794-b37a-352b64ffe9a5"  class="select-none p-6 bg-white rounded-lg shadow-md min-w-[500px] h-fit mt-5 " ><span id="3f33b608-b65c-4059-8bbb-be8564068267"  class="select-none inherit-cursor text-2xl font-bold mb-6 " >Create New User</span><div id="6dfe841f-1eb7-4625-8b81-592a566b4e89"  class="select-none mb-4 " ><span id="ab8c751a-16af-4083-bedf-b893361ce446"  class="select-none inherit-cursor block text-gray-700 text-sm font-bold mb-2 " >Name</span><input id="2786d77f-6146-401f-81ed-f22666201dc3" type="text" placeholder="Enter name" class="select-none outline-none border-2 rounded-lg border-gray-300 px-3 py-2 transition-all duration-200 focus:border-black w-full " ></input></div><div id="ef973d2b-6711-463e-87fd-ff19d6ad5b6c"  class="select-none mb-4 " ><span id="ad4bdbbf-5417-4d96-8ef0-9e6166547740"  class="select-none inherit-cursor block text-gray-700 text-sm font-bold mb-2 " >Semester</span><select id="d0538ec8-66ab-4622-9ba2-4431896b315a"  class="select-none outline-none rounded-lg border border-gray-300 px-3 py-2 w-full " ><option id="faa90b99-5815-4077-8a1c-f1a4c40fba26" value="" class="select-none w-full " >Select semester</option><option id="cc238ea8-3fab-4e03-b3ce-8cff353cc137" value="1" class="select-none w-full " >Semester 1</option><option id="e016cad9-129f-4a24-959b-950d1c14c384" value="2" class="select-none w-full " >Semester 2</option><option id="f2b8a1b5-0a76-4df4-b961-bb1a08176e50" value="3" class="select-none w-full " >Semester 3</option><option id="eadd55b5-62e7-4bcc-a120-eaed2f935d17" value="4" class="select-none w-full " >Semester 4</option><option id="807d6620-4a60-4c4e-9a7e-23cb90a45e30" value="5" class="select-none w-full " >Semester 5</option><option id="ec5a34b9-283b-4a0e-968c-f6507219d3e3" value="6" class="select-none w-full " >Semester 6</option><option id="a31a990d-3305-4f50-af7f-8f45860e7fe1" value="7" class="select-none w-full " >Semester 7</option><option id="49d5c250-0d1f-4d43-8547-0f4d2295ebf2" value="8" class="select-none w-full " >Semester 8</option></select></div><div id="952deb39-b140-4c19-a025-2e33e0ed4f17"  class="select-none mb-4 " ><span id="c7eb3054-e57b-4a6c-935e-8d38be1177ac"  class="select-none inherit-cursor block text-gray-700 text-sm font-bold mb-2 " >Roll Number</span><input id="c17c8134-f178-45cf-b68f-c49f9b9cd09b" type="text" placeholder="Enter roll number" class="select-none outline-none border-2 rounded-lg border-gray-300 px-3 py-2 transition-all duration-200 focus:border-black w-full px-3 py-2 border rounded " ></input></div><button id="9d18c5ec-f5e5-4d45-bd4b-c37bc543652f" onclick="clickHandler('9d18c5ec-f5e5-4d45-bd4b-c37bc543652f')" class="select-none bg-black text-lg text-white px-3 py-1 rounded-lg hover:bg-opacity-90 active:bg-opacity-80 transition-all duration-200 ease-in-out pointer-events-none bg-opacity-50 w-full py-2 bg-black text-white rounded mb-4 flex items-center justify-center " ><div id="4cb51a96-e8f1-40c1-bbe2-91a40bbd6669"  class="select-none flex items-center  " ><svg id="dc223752-5625-4db8-86ab-e79e23204eca" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="select-none lucide lucide-fingerprint w-5 h-5" ><path id="f4d29a81-fdd1-481c-ba5f-40c9170dfc72" d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4" class="select-none " ></path><path id="bf5848e4-f3a3-406d-94e1-7d2fd2bd61c8" d="M14 13.12c0 2.38 0 6.38-1 8.88" class="select-none " ></path><path id="b4dcb415-46b9-430f-9189-49a514c5ec09" d="M17.29 21.02c.12-.6.43-2.3.5-3.02" class="select-none " ></path><path id="9d0982a0-2f44-44c8-b3f8-333d16ac06e2" d="M2 12a10 10 0 0 1 18-6" class="select-none " ></path><path id="c212cc57-0dee-43aa-a1b3-79275272e2b1" d="M2 16h.01" class="select-none " ></path><path id="acc180e9-d9d5-4678-87bb-5061d471ed47" d="M21.8 16c.2-2 .131-5.354 0-6" class="select-none " ></path><path id="86710301-77ad-4aec-a2bf-7c0165536989" d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2" class="select-none " ></path><path id="7a3032ac-8f34-47f9-b08d-133d6bf19a59" d="M8.65 22c.21-.66.45-1.32.57-2" class="select-none " ></path><path id="fa8b50e8-3afa-43c4-bfdf-84d253272299" d="M9 6.8a6 6 0 0 1 9 5.2v2" class="select-none " ></path></svg><span id="d19133e6-e3a2-4f54-9f80-277a0150dc55"  class="select-none inherit-cursor ml-2" >Scan Fingerprint</span></div></button><button id="c839359f-11fa-4181-bd97-2d5da6ad4aaf"  class="select-none bg-black text-lg text-white px-3 py-1 rounded-lg hover:bg-opacity-90 active:bg-opacity-80 transition-all duration-200 ease-in-out pointer-events-none bg-opacity-50 w-full py-2 bg-black text-white rounded mb-4 flex items-center justify-center " ><div id="054fe67e-99d2-4269-beea-909131aac9f1"  class="select-none flex items-center  " ><svg id="791de706-2ecf-44c8-bd95-af5b90a1e920" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="select-none lucide lucide-user-plus w-5 h-5" ><path id="79c8a999-c7e1-4a4a-ae36-a7d4b25f0c9b" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" class="select-none " ></path><circle id="5f4bf7d9-1373-4449-9840-e5dc73fea252" cx="9" cy="7" r="4" class="select-none " ></circle><line id="8fc2f2bd-3808-4b25-be75-38868e86b48f" x1="19" x2="19" y1="8" y2="14" class="select-none " ></line><line id="7cadbf08-bc30-4455-acdf-742e1cc4a9b6" x1="22" x2="16" y1="11" y2="11" class="select-none " ></line></svg><span id="e70239d4-c1ed-418e-85e1-cd9034231817"  class="select-none inherit-cursor ml-2" >Create user</span></div></button></div></div></div></body></html>
