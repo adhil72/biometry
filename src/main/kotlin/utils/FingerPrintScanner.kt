@@ -35,21 +35,13 @@ class FingerPrintScanner {
             process = Runtime.getRuntime().exec(cmd)
             process?.waitFor()
 
-            val reader = BufferedReader(InputStreamReader(process?.inputStream!!))
-            var line: String? = ""
-            while ((reader.readLine().also { line = it }) != null) {
-                println(line)
-            }
-
             var imgFile = File("frame_Ex.bmp")
             val fileNameExt = "$fileName.bmp"
             renameFile(imgFile, fileNameExt)
             imgFile = File(fileNameExt)
             moveFileToFolder(imgFile, folder)
             return fileNameExt
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        } catch (_: Exception) { }
         return null
     }
 
@@ -62,26 +54,14 @@ class FingerPrintScanner {
     private fun renameFile(file: File, toName: String) {
         if (file.exists()) {
             val newFile = File(file.parent, toName)
-            if (file.renameTo(newFile)) {
-                println("File renamed to: $toName")
-            } else {
-                println("Failed to rename file.")
-            }
-        } else {
-            println("File does not exist.")
+            file.renameTo(newFile)
         }
     }
 
     private fun moveFileToFolder(file: File, folder: File) {
         if (file.exists() && folder.exists()) {
             val newFile = File(folder, file.name)
-            if (file.renameTo(newFile)) {
-                println("File moved to: " + folder.name)
-            } else {
-                println("Failed to move file.")
-            }
-        } else {
-            println("File or folder does not exist.")
+            file.renameTo(newFile)
         }
     }
 

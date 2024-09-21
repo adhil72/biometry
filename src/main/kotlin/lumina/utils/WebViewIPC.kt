@@ -1,6 +1,8 @@
 package gecw.ace.lumina.utils
 
 import com.google.gson.Gson
+import javafx.application.Platform
+import javafx.event.EventHandler
 import javafx.scene.web.WebEngine
 import netscape.javascript.JSObject
 
@@ -8,6 +10,9 @@ class WebViewIPC(private val webEngine: WebEngine) {
 
     init {
         setupIPC()
+        webEngine.onAlert = EventHandler {
+            println("alert : "+it.data)
+        }
     }
 
     companion object {
@@ -50,30 +55,32 @@ class WebViewIPC(private val webEngine: WebEngine) {
         val path = data["path"] as String
         val id = data["id"] as String
 
-        when (path) {
-            "click" -> clickListeners[id]?.invoke()
-            "formSubmit" -> formSubmitListeners[id]?.invoke()
-            "mouseEnter" -> onMouseEnterListeners[id]?.invoke()
-            "mouseLeave" -> onMouseLeaveListeners[id]?.invoke()
-            "change" -> onChangeListeners[id]?.invoke()
-            "input" -> onInputListeners[id]?.invoke()
-            "scroll" -> onScrollListeners[id]?.invoke()
-            "keyPress" -> onKeyPressListeners[id]?.invoke()
-            "keyUp" -> onKeyUpListeners[id]?.invoke()
-            "keyDown" -> onKeyDownListeners[id]?.invoke()
-            "contextMenu" -> onContextMenuListeners[id]?.invoke()
-            "doubleClick" -> onDoubleClickListeners[id]?.invoke()
-            "drag" -> onDragListeners[id]?.invoke()
-            "dragEnd" -> onDragEndListeners[id]?.invoke()
-            "dragEnter" -> onDragEnterListeners[id]?.invoke()
-            "dragExit" -> onDragExitListeners[id]?.invoke()
-            "dragLeave" -> onDragLeaveListeners[id]?.invoke()
-            "dragOver" -> onDragOverListeners[id]?.invoke()
-            "dragStart" -> onDragStartListeners[id]?.invoke()
-            "drop" -> onDropListeners[id]?.invoke()
-            "focus" -> onFocusListeners[id]?.invoke()
-            "blur" -> onBlurListeners[id]?.invoke()
-        }
+       Platform.runLater {
+           when (path) {
+               "click" -> clickListeners[id]?.invoke()
+               "formSubmit" -> formSubmitListeners[id]?.invoke()
+               "mouseEnter" -> onMouseEnterListeners[id]?.invoke()
+               "mouseLeave" -> onMouseLeaveListeners[id]?.invoke()
+               "change" -> onChangeListeners[id]?.invoke()
+               "input" -> onInputListeners[id]?.invoke()
+               "scroll" -> onScrollListeners[id]?.invoke()
+               "keyPress" -> onKeyPressListeners[id]?.invoke()
+               "keyUp" -> onKeyUpListeners[id]?.invoke()
+               "keyDown" -> onKeyDownListeners[id]?.invoke()
+               "contextMenu" -> onContextMenuListeners[id]?.invoke()
+               "doubleClick" -> onDoubleClickListeners[id]?.invoke()
+               "drag" -> onDragListeners[id]?.invoke()
+               "dragEnd" -> onDragEndListeners[id]?.invoke()
+               "dragEnter" -> onDragEnterListeners[id]?.invoke()
+               "dragExit" -> onDragExitListeners[id]?.invoke()
+               "dragLeave" -> onDragLeaveListeners[id]?.invoke()
+               "dragOver" -> onDragOverListeners[id]?.invoke()
+               "dragStart" -> onDragStartListeners[id]?.invoke()
+               "drop" -> onDropListeners[id]?.invoke()
+               "focus" -> onFocusListeners[id]?.invoke()
+               "blur" -> onBlurListeners[id]?.invoke()
+           }
+       }
     }
 
     fun sendMessageToJavaScript(message: String) {

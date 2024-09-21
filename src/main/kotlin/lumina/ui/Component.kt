@@ -1,8 +1,8 @@
 package gecw.ace.lumina.ui
 
+import gecw.ace.lumina.Lumina
 import gecw.ace.lumina.utils.WebViewIPC
 import gecw.ace.lumina.utils.generateRandomUid
-import javafx.scene.paint.Color
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
@@ -12,9 +12,10 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     val children = mutableListOf<Component>()
     val classList = mutableListOf<String>().apply { add("select-none") }
     val style = mutableMapOf<String, String>()
-    var id: String = generateRandomUid()
+    var id: String = name+"_"+generateRandomUid()
+    var rendered = false
 
-    companion object{
+    companion object {
         fun parseHtml(html: String): Component {
             val document = Jsoup.parse(html, "", Parser.xmlParser())
             return parseElement(document.body())
@@ -60,11 +61,13 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     }
 
     fun addClass(className: String) {
-        classList.add(className)
+        if (rendered) Lumina.executeJS("document.getElementById('$id').classList.add('$className')")
+        else classList.add(className)
     }
 
     fun removeClass(className: String) {
-        classList.remove(className)
+        if (rendered) Lumina.executeJS("document.getElementById('$id').classList.remove('$className')")
+        else classList.remove(className)
     }
 
     fun toggleClass(className: String) {
@@ -76,7 +79,8 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     }
 
     fun setAttribute(key: String, value: String) {
-        attributes[key] = value
+        if (rendered) Lumina.executeJS("document.getElementById('$id').setAttribute('$key', '$value')")
+        else attributes[key] = value
     }
 
     fun removeAttribute(key: String) {
@@ -91,20 +95,25 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
         style.remove(key)
     }
 
-    fun add(child: Component,className:String="") {
+    fun add(child: Component, className: String = "") {
         child.classList.add(className)
-        children.add(child)
+        if (rendered) Lumina.executeJS("document.getElementById('$id').innerHTML += `${child.render()}`")
+        else children.add(child)
+
     }
 
     fun add(child: String) {
-        children.add(Component(child, valueVar = true))
+        if (rendered) Lumina.executeJS("document.getElementById('$id').innerHTML += `$child`")
+        else children.add(Component(child, valueVar = true))
     }
 
     fun remove(child: Component) {
-        children.remove(child)
+        if (rendered) Lumina.executeJS("document.getElementById('$id').removeChild(document.getElementById('${child.id}'))")
+        else children.remove(child)
     }
 
     fun render(): String {
+        rendered = true
         if (valueVar == true) return name
         val attributesString = attributes.map { (key, value) -> "$key=\"$value\"" }.joinToString(" ")
         val classListString = if (classList.isNotEmpty()) "class=\"${classList.joinToString(" ")}\"" else ""
@@ -116,17 +125,22 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     }
 
     fun cn(string: String) {
-        classList.add(string)
+        if (rendered) Lumina.executeJS("document.getElementById('$id').classList.add('$string')")
+        else classList.add(string)
     }
 
     fun onClick(res: () -> Unit) {
-        attributes["onclick"] = "clickHandler('$id')"
+        if (rendered) Lumina.executeJS("document.getElementById('$id').onclick = () => clickHandler('$id')")
+        else attributes["onclick"] = "clickHandler('$id')"
         WebViewIPC.clickListeners[id] = res
+
     }
 
     fun onFormSubmit(res: () -> Unit) {
-        attributes["onsubmit"] = "formSubmitHandler('$id')"
         WebViewIPC.formSubmitListeners[id] = res
+        if (rendered) Lumina.executeJS("document.getElementById('$id').onsubmit = () => formSubmitHandler('$id')")
+        else attributes["onsubmit"] = "formSubmitHandler('$id')"
+
     }
 
     fun onMouseEnter(res: () -> Unit) {
@@ -140,7 +154,8 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     }
 
     fun onChange(res: () -> Unit) {
-        attributes["onchange"] = "changeHandler('$id')"
+        if (rendered) Lumina.executeJS("document.getElementById('$id').onchange = () => changeHandler('$id')")
+        else attributes["onchange"] = "changeHandler('$id')"
         WebViewIPC.onChangeListeners[id] = res
     }
 
@@ -227,6 +242,7 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
     fun onBlur(res: () -> Unit) {
         attributes["onblur"] = "blurHandler('$id')"
         WebViewIPC.onBlurListeners[id] = res
+        if (rendered) Lumina.executeJS("document.getElementById('$id').onblur = () => blurHandler('$id')")
     }
 
     fun flex() {
@@ -363,5 +379,22 @@ open class Component(var name: String, var valueVar: Boolean? = false) {
 
     fun disablePropagation() {
         attributes["onclick"] = "event.stopPropagation()"
+    }
+
+    fun removeChilds() {
+        children.clear()
+        if (rendered) Lumina.executeJS("document.getElementById('$id').innerHTML = ''")
+    }
+
+    fun removeChilds(start:Int,end:Int){
+        if (rendered) {
+            val ids = children.subList(start,end)
+            ids.forEach{
+                Lumina.executeJS("""
+                    document.getElementById('${it.id}').remove()
+                """.trimIndent())
+            }
+        }
+        children.removeAll(children.subList(start,end))
     }
 }

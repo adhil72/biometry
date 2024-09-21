@@ -81,8 +81,13 @@ open class Lumina : Application() {
             return currentWebView?.engine?.document?.getElementById(id)!!
         }
 
-        fun executeJS(js:String){
-            currentWebView?.engine?.executeScript(js)
+        fun executeJS(js:String): String {
+            try {
+                return currentWebView?.engine?.executeScript(js)?.toString() ?: ""
+            } catch (e: Exception) {
+                println("Error : $js\n${e.message}")
+                return ""
+            }
         }
 
         fun interval(seconds: Double, action: () -> Boolean) {

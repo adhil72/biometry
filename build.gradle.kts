@@ -18,7 +18,6 @@ dependencies {
     testImplementation(kotlin("test"))
 
     implementation("org.mongodb:mongodb-driver-sync:5.1.2")
-    implementation("com.machinezoo.sourceafis:sourceafis:3.18.1")
 
     implementation("org.jsoup:jsoup:1.15.3")
 

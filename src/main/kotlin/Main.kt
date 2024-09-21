@@ -1,18 +1,17 @@
 package gecw.cse
 
 import gecw.ace.lumina.Lumina
-import gecw.cse.views.home.CreateUserView
-import gecw.cse.views.home.Home
+import gecw.cse.views.connection.Connecting
 import javafx.application.Application
-import java.io.File
 
 class App: Lumina(){
     override fun onViewCreated() {
         super.onViewCreated()
-        setView(CreateUserView())
+        setView(Connecting())
     }
 }
 
 fun main() {
    Application.launch(App::class.java)
+    println("stated")
 }

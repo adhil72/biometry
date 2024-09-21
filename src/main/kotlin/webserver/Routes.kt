@@ -225,8 +225,6 @@ class Routes {
             .body(resource)
     }
 
-
-
     @GetMapping("/dashboard")
     fun dashboard(): String {
         val studentsCount = MongoDbManager.mongoClient.getDatabase("ace").getCollection("users").countDocuments()

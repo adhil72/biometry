@@ -1,6 +1,7 @@
 package gecw.ace.lumina.ui.common
 
 import gecw.ace.lumina.ui.Component
+import gecw.ace.lumina.utils.Resource
 
 open class Html : Component("html") {
     init {
@@ -8,8 +9,22 @@ open class Html : Component("html") {
             add(Component("title").apply {
                 add(Component("Lumina", valueVar = true))
             })
+            add("""
+                <style>
+                    ${Resource.getAsString("flp.css")}
+                </style>
+                <script>
+                    ${Resource.getAsString("flp.js")}
+                </script>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    flatpickr('.datePicker', {
+                      dateFormat: "Y-m-d",
+                    });
+                  });
+                </script>
+            """.trimIndent())
             javaClass.getResource("/tailwind.js")?.let {
-                println("Found tailwind.js")
                 add(
                     """
                     <script>${it.readText()}</script>
@@ -133,11 +148,11 @@ open class Html : Component("html") {
                         },
                         keyframes: {
                             'expand-top-bottom': {
-                                0%:{
-                                    scaleY:0;
+                                '0%':{
+                                    scaleY:0
                                 },
-                                100%:{
-                                    scaleY:1;
+                                '100%':{
+                                    scaleY:1
                                 }
                             },
                         },

@@ -12,6 +12,5 @@ val homeComponent = Div().apply {
 class Home:Layout(homeComponent,"home") {
     override fun onCreated() {
         super.onCreated()
-
     }
 }

@@ -7,17 +7,31 @@ import gecw.ace.lumina.ui.common.Div
 import gecw.ace.lumina.ui.common.Image
 import gecw.ace.lumina.ui.common.Span
 import gecw.ace.lumina.utils.Resource
-import gecw.cse.views.home.CreateUserView
+import gecw.cse.views.create_user.CreateUserView
 import gecw.cse.views.home.Home
+import gecw.cse.views.record.RecordView
+import gecw.cse.views.records.Records
+import javafx.application.Platform
 
 fun sidebarItem(name: String, icon: String, active: Boolean = false): Component {
     return Div().apply {
         onClick {
-            if (name == "Dashboard") {
-                Lumina.setView(Home())
-            }else{
-                Lumina.setView(CreateUserView())
-            }
+           Platform.runLater {
+               when (name) {
+                   "Dashboard" -> {
+                       Lumina.setView(Home())
+                   }
+                   "Create student" -> {
+                       Lumina.setView(CreateUserView())
+                   }
+                   "Record attendance" -> {
+                       Lumina.setView(RecordView())
+                   }
+                   "View Records" -> {
+                       Lumina.setView(Records())
+                   }
+               }
+           }
         }
         cn("flex text-gray-600 items-center w-full cursor-pointer rounded-md p-2 transition-all duration-200 ease-in-out")
         add(Image(icon), "w-5 h-5")
@@ -39,6 +53,6 @@ class Sidebar(active: String) : View() {
         add(sidebarItem("Dashboard", Resource.icon("home.svg"), active == "home"), "mt-5")
         add(sidebarItem("Create student", Resource.icon("user_add.svg"), active == "create"), "mt-1")
         add(sidebarItem("Record attendance", Resource.icon("finger.svg"), active == "record"), "mt-1")
-        add(sidebarItem("View Records", Resource.icon("table.svg"), active == "view"), "mt-1")
+        add(sidebarItem("View Records", Resource.icon("table.svg"), active == "records"), "mt-1")
     }
 }
