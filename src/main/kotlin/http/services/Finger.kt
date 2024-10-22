@@ -17,8 +17,8 @@ fun verifyFinger(file: File, uid: String, onResponse: (response: BsonDocument) -
     }
 }
 
-fun detectFingerService(file: File, sem: String, type: String, session:String, onResponse: (response: BsonDocument) -> Unit) {
-    HttpClient().upload("/finger/detect", file, hashMapOf("sem" to sem, "type" to type, "session" to session)) {
+fun detectFingerService(file: File, batch: String, type: String, session:String, onResponse: (response: BsonDocument) -> Unit) {
+    HttpClient().upload("/finger/detect", file, hashMapOf("batch" to batch, "type" to type, "session" to session)) {
         File("test.bmp").delete()
         onResponse(it)
     }

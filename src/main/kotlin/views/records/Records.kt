@@ -10,6 +10,7 @@ import gecw.cse.lumina.ui.common.*
 import gecw.cse.utils.DownloadManager
 import gecw.cse.utils.FileUtils
 import gecw.cse.views.common.Layout
+import gecw.cse.views.create_user.batchInput
 import javafx.application.Platform
 import java.time.Instant
 import java.time.LocalDateTime
@@ -38,11 +39,10 @@ fun clearTable() {
     }
 }
 
+val batchSelect = Input().apply {
+    cn("flex-1 uppercase")
 
-val semSelect = Select().apply {
-    cn("flex-1")
-    add(Option("Select semester", ""))
-    for (i in 1..8) add(Option("Semester $i", i.toString()))
+    placeholder = "Enter batch eg: 2K23"
 }
 
 val dateSelect = Input("date").apply {
@@ -61,7 +61,7 @@ val sessionSelect = Select().apply {
 val exportButton = Button(Span("Export")).apply {
     cn("w-full py-2 bg-blue-500 text-white rounded-md mt-5")
     onClick {
-        Lumina.executeJS("window.open(`/export?date=${dateSelect.value}&sem=${semSelect.value}&session=${sessionSelect.value}')")
+        Lumina.executeJS("window.open(`/export?date=${dateSelect.value}&batch=${batchSelect.value}&session=${sessionSelect.value}')")
     }
 }
 
@@ -75,7 +75,7 @@ val recordsComponent = Div().apply {
         add(Div().apply {
             cn("grid grid-cols-3 w-full gap-x-5 my-5")
             add(dateSelect)
-            add(semSelect)
+            add(batchSelect)
             add(sessionSelect)
         })
         add(Table)
@@ -88,9 +88,13 @@ val recordsComponent = Div().apply {
 
 fun fetchRecords() {
     Platform.runLater { clearTable() }
-    if (dateSelect.value != "" && semSelect.value != "" && sessionSelect.value.isNotEmpty()) getRecordsService(dateSelect.value, semSelect.value, sessionSelect.value) {
+    val dateValue = dateSelect.value
+    val batchValue = batchSelect.value
+    val sessionValue = sessionSelect.value
+    if (dateValue != "" && batchValue != "" && sessionValue.isNotEmpty()) getRecordsService(dateValue, batchValue, sessionValue) {
         Platform.runLater {
             exportButton.enabled = true
+            println(it)
             it.forEach {
                 Table.add(Tr().apply {
                     it.asDocument()["name"]?.asString()?.value?.let { it1 -> add(Td(it1)) }
@@ -121,6 +125,7 @@ fun fetchRecords() {
             }
         }
     }
+
 }
 
 class Records : Layout(recordsComponent, "records") {
@@ -128,13 +133,13 @@ class Records : Layout(recordsComponent, "records") {
         super.onCreated()
         Lumina.executeJS("flatpickr('.dpdpdp', {dateFormat: 'Y-m-d'})")
         dateSelect.onChange { fetchRecords() }
-        semSelect.onChange { fetchRecords() }
+        batchSelect.onChange { fetchRecords() }
         sessionSelect.onChange { fetchRecords() }
 
         exportButton.onClick {
             folderPicker.pickFolder {
                 if (it.isNotEmpty()){
-                    DownloadManager().download(HttpClient.BASE_URL+"/export/csv?sem=${semSelect.value}&date=${dateSelect.value}&session=${sessionSelect.value}", it,"records",false)
+                    DownloadManager().download(HttpClient.BASE_URL+"/export/csv?batch=${batchSelect.value}&date=${dateSelect.value}&session=${sessionSelect.value}", it,"records",false)
                 }
             }
         }

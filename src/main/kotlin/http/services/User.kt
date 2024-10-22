@@ -9,12 +9,14 @@ fun createUserService(
     uid: String,
     rollNumber: String,
     semester: String,
+    regNo: String,
     onResponse: (data: BsonDocument) -> Unit
 ) {
     HttpClient().post("/create/user", BsonDocument().apply {
         append("uid", BsonString(uid))
         append("name", BsonString(name))
         append("rollNumber", BsonString(rollNumber))
-        append("semester", BsonString(semester))
+        append("batch", BsonString(semester))
+        append("regNo", BsonString(regNo))
     }, onResponse)
 }

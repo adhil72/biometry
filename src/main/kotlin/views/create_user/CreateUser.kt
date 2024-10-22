@@ -20,13 +20,16 @@ val rollNoInput = Input().apply {
     placeholder = "Enter roll number"
 }
 
-val semSelect = Select().apply {
-    onChange { checkEnableBtnCreateUser() }
-    cn("w-full")
-    add(Option("Select semester", ""))
-    for (i in 1..8) {
-        add(Option("Semester $i", i.toString()))
-    }
+val batchInput = Input().apply {
+    onInput { checkEnableBtnCreateUser() }
+    addClass("w-full px-3 py-2 border rounded uppercase")
+    placeholder = "Enter batch"
+}
+
+val regNumberInput = Input().apply {
+    onInput { checkEnableBtnCreateUser() }
+    addClass("w-full px-3 py-2 border rounded")
+    placeholder = "Enter roll number"
 }
 
 val nameInput = Input().apply {
@@ -96,8 +99,14 @@ val createUserComponent = Div().apply {
 
         add(Div().apply {
             cn("mb-4")
-            add(Span("Semester").apply { cn("block text-gray-700 text-sm font-bold mb-2") })
-            add(semSelect)
+            add(Span("Batch").apply { cn("block text-gray-700 text-sm font-bold mb-2") })
+            add(batchInput)
+        })
+
+        add(Div().apply {
+            cn("mb-4")
+            add(Span("Registration Number").apply { cn("block text-gray-700 text-sm font-bold mb-2") })
+            add(regNumberInput)
         })
 
         add(Div().apply {
@@ -114,7 +123,7 @@ val createUserComponent = Div().apply {
 
 fun checkEnableBtnCreateUser() {
     buttonCreateUser.enabled =
-        nameInput.value.isNotEmpty() && uid.isNotEmpty() && semSelect.value.isNotEmpty() && rollNoInput.value.isNotEmpty() && verified
+        nameInput.value.isNotEmpty() && uid.isNotEmpty() && batchInput.value.isNotEmpty() && rollNoInput.value.isNotEmpty() && regNumberInput.value.isNotEmpty() && verified
 }
 
 var count = 0
@@ -195,13 +204,13 @@ class CreateUserView : Layout(createUserComponent, "create") {
         }
 
         buttonCreateUser.onClick {
-            println("create")
-            createUserService(nameInput.value, uid, rollNoInput.value, semSelect.value) {
+            println("create "+ batchInput.value)
+            createUserService(nameInput.value, uid, rollNoInput.value, batchInput.value, regNumberInput.value) {
                 Platform.runLater {
                     createToast("User created successfully", 1, ToastType.SUCCESS)
                     nameInput.value = ""
                     rollNoInput.value = ""
-                    semSelect.value = ""
+                    batchInput.value = ""
                     verified = false
                     buttonVerifyUser.enabled = false
                     buttonCreateUser.enabled = false

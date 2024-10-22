@@ -14,13 +14,10 @@ import kotlin.properties.Delegates
 
 var scanning = false
 
-val semSelect = Select().apply {
+val batchInput = Input().apply {
     onChange { checkEnableBtnRecord() }
-    cn("w-full")
-    add(Option("Select semester", ""))
-    for (i in 1..8) {
-        add(Option("Semester $i", i.toString()))
-    }
+    cn("w-full uppercase")
+    placeholder = "Enter batch eg: 2K23"
 }
 
 val typeSelect = Select().apply {
@@ -49,7 +46,7 @@ val buttonRecord = Button(enabled = false, innerComponent = Div().apply {
 }
 
 fun checkEnableBtnRecord() {
-    buttonRecord.enabled = semSelect.value.isNotEmpty() && typeSelect.value.isNotEmpty() && sessionSelect.value.isNotEmpty()
+    buttonRecord.enabled = batchInput.value.isNotEmpty() && typeSelect.value.isNotEmpty() && sessionSelect.value.isNotEmpty()
 }
 
 val scanFingerDialog = Dialog(Div().apply {
@@ -99,7 +96,7 @@ val recordCheckInComponent = Div().apply {
         add(Div().apply {
             cn("mb-4")
             add(Span("Semester").apply { cn("block text-gray-700 text-sm font-bold mb-2") })
-            add(semSelect)
+            add(batchInput)
         })
 
         add(Div().apply {
@@ -129,14 +126,14 @@ var exit: Boolean by Delegates.observable(false) { _, _, new ->
 }
 
 fun scan() {
-    val semValue = semSelect.value
+    val batchValue = batchInput.value
     val typeValue = typeSelect.value
     val sessionValue = sessionSelect.value
     Thread {
         if (exit) return@Thread
         FingerPrintScanner().scan(File(""), "test")
         if (File("test.bmp").exists()) Platform.runLater {
-            detectFingerService(File("test.bmp"), semValue, typeValue, sessionValue) {
+            detectFingerService(File("test.bmp"), batchValue, typeValue, sessionValue) {
                 Platform.runLater {
                     val matched = it["match"]?.asBoolean()?.value == true
                     if (matched){

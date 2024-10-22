@@ -9,16 +9,21 @@ fun generateIdService(onGenerated: (uid: String) -> Unit) {
     }
 }
 
-fun getRecordsService(date: String, sem: String, session:String, onRecords: (records: BsonArray) -> Unit) {
-    HttpClient().get("/records?date=$date&sem=$sem&session=$session") {
+fun getRecordsService(date: String, batch: String, session:String, onRecords: (records: BsonArray) -> Unit) {
+    HttpClient().get("/records?date=$date&batch=$batch&session=$session") {
         onRecords(it.getArray("data"))
     }
 }
 
 fun testConnectionService(onSuccess: () -> Unit, onFailure: () -> Unit) {
     try {
-        HttpClient().get("/test") { onSuccess() }
+        println("testing")
+        HttpClient().get("/") {
+            onSuccess();
+            println("testing")
+        }
     } catch (e: Exception) {
+        e.printStackTrace()
         onFailure()
     }
 }
